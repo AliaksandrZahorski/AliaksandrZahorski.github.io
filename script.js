@@ -22,7 +22,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-	var result = a * b;
+	var result = a / b;
 	return result;
 }
 
