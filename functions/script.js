@@ -11,11 +11,11 @@ console.log(plus("test ", "me"));
 console.log(plus("test ", "me", "again"));
 
 function plus(a, b) {
-	return a + b;
+  return a + b;
 }
 
 function minus(a, b) {
-	return a - b;
+  return a - b;
 }
 
 function multiply(a, b) {
@@ -23,9 +23,9 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-	return a / b;
+  return a / b;
 }
 
 function div(a, b) {
-	return (a - a % b) / b;
+  return (a - a % b) / b;
 }
