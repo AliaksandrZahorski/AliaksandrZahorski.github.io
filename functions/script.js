@@ -9,14 +9,7 @@ console.log(plus(1));//undefined->NaN
 console.log(plus(null, null));//null->0
 console.log(plus("test ", "me"));
 console.log(plus("test ", "me", "again"));
-//new tests
 console.log(div(3.5, 2));
-console.log(divT(3.5, 2));
-console.log(div(-1.5, 2));
-console.log(divT(-1.5, 2));
-console.log(div(5, 3));
-console.log(divT(5, 3));
-
 
 function plus(a, b) {
   return a + b;
@@ -35,19 +28,5 @@ function divide(a, b) {
 }
 
 function div(a, b) {
-  return (a - a % b) / b;
+  return parseInt(a / b, 10);
 }
-
-function divT(a, b) {
-  return trunc(a/b);;
-}
-
-function trunc(x) {
-  if (isNaN(x)) {
-    return NaN;
-  }
-  if (x > 0) {
-    return Math.floor(x);
-  }
-  return Math.ceil(x);
-};
