@@ -13,7 +13,7 @@ console.log(sum(range(5)));
 console.log(unique(sameNumbers));
 console.log(last(fruits));
 console.log(excludeLast(range(5)));
-console.log(excludeLast(range(5), 1));
+console.log(excludeLast([1, 2, 3], 1));
 
 function isArray(obj)
 {
@@ -91,27 +91,31 @@ function unique(obj) {
 
 function unique(arr) {
   var result = [];
-    for(var i = 0; i < arr.length; i++) {
-      var currentValue = arr[i];
-      var hasElement = false;
-      for (var j = 0; j < result.length; j++) { 
-        if (result[j] == currentValue) {
-          hasElement = true;
-          break;
-        }
-      }
-      if(!hasElement) {
-        result.push(str);
+  for(var i = 0; i < arr.length; i++) {
+    var currentValue = arr[i];
+    var hasElement = false;
+    for(var j = 0; j < result.length; j++) { 
+      if (result[j] == currentValue) {
+        hasElement = true;
+        break;
       }
     }
+    if(!hasElement) {
+      result.push(currentValue);
+    }
+  }
   return result;
 }
 
-
-function last(obj) {
-  return obj[obj.length - 1];
+function last(arr) {
+  return arr[arr.length - 1];
 }
 
-function excludeLast(arr, len = 0) {
-  return arr.slice(0, -1 - len);
+function excludeLast(arr, len) {
+  //return arr.slice(0, -1 - len);
+  if (len === undefined) {
+    var len = 1;
+  }
+  var last = arr.splice(-len, len);
+  return arr;
 }
