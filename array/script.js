@@ -116,6 +116,7 @@ function excludeLast(arr, len) {
   if (len === undefined) {
     var len = 1;
   }
-  var last = arr.splice(-len, len);
-  return arr;
+  let newArray = arr.slice();
+  var last = newArray.splice(-len, len);
+  return newArray;
 }
