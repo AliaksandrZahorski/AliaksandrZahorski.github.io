@@ -91,13 +91,13 @@ function unique(obj) {
 
 function unique(arr) {
   var result = [];
-    for (var i = 0; i < arr.length; i++) {
-      var str = arr[i];
+    for(var i = 0; i < arr.length; i++) {
+      var currentValue = arr[i];
       var hasElement = false;
       for (var j = 0; j < result.length; j++) { 
-        if (result[j] == str) {
+        if (result[j] == currentValue) {
           hasElement = true;
-          continue;
+          break;
         }
       }
       if(!hasElement) {
