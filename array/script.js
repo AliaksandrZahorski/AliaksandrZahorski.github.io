@@ -58,9 +58,7 @@ function compact(obj) {
 */
 
 function compact(arr) {
-  return arr.filter(function(e){
-    return e;
-  });  
+  return arr.filter(function(e){return e;});  
 }
 
 /*
@@ -112,11 +110,8 @@ function last(arr) {
 }
 
 function excludeLast(arr, len) {
-  //return arr.slice(0, -1 - len);
   if (len === undefined) {
     var len = 1;
   }
-  let newArray = arr.slice();
-  var last = newArray.splice(-len, len);
-  return newArray;
+  return arr.slice(0, -len);
 }
