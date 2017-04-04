@@ -7,17 +7,20 @@ console.log(binarySearch(sortedNumbers, 5));
 console.log(binarySearch(sortedNumbers, 2.5));
 
 function binarySearch(arr, key) {
-  var lo = 0, up = arr.length - 1, mid, el;
-  while (lo <= up) {
-    mid = (lo + up) >> 1;
-    el = arr[mid];
-    if (key > el) {
-      lo = mid + 1;
-    } else if (key < el) {
-      up = mid - 1;
+  var lower = 0;
+  var upper = arr.length - 1;
+  var mid;
+  var current;
+  while (lower <= upper) {
+    mid = (lower + upper) >> 1;
+    current = arr[mid];
+    if (key > current) {
+      lower = mid + 1;
+    } else if (key < current) {
+      upper = mid - 1;
     } else {
       return mid;
     }
   }
-  return -mid - 1;
+  return -1;
 }
