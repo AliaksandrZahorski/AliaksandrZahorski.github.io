@@ -6,6 +6,7 @@ console.log(binarySearch(sortedNumbers, -5));
 console.log(binarySearch(sortedNumbers, 5));
 console.log(binarySearch(sortedNumbers, 2.5));
 
+/*
 function binarySearch(arr, key) {
   var lower = 0;
   var upper = arr.length - 1;
@@ -23,4 +24,21 @@ function binarySearch(arr, key) {
     }
   }
   return -1;
+}
+*/
+
+function binarySearch(arr, key) {
+  var lower = 0;
+  var upper = arr.length - 1;
+  var mid;
+  var current;
+  mid = (lower + upper) >> 1;
+  current = arr[mid];
+  if (current > key) {
+    return binarySearch(arr.slice(0, mid), key);
+  } else if (current < key) {
+    return binarySearch(arr.slice(mid + 1, arr.length), key);
+  } else {
+    return arr[mid];
+  }
 }
