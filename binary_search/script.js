@@ -39,6 +39,6 @@ function binarySearch(arr, key) {
   } else if (current < key) {
     return binarySearch(arr.slice(mid + 1, arr.length), key);
   } else {
-    return arr[mid];
+    return arr[mid]? mid: -1;
   }
 }
