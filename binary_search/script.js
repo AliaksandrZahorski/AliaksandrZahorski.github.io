@@ -1,7 +1,7 @@
-var sortedNumbers = [1, 2, 3, 4];
+var sortedNumbers = [-1, 0, 3, 4];
 
-console.log(binarySearch(sortedNumbers, 1));
-console.log(binarySearch(sortedNumbers, 2));
+console.log(binarySearch(sortedNumbers, -1));
+console.log(binarySearch(sortedNumbers, 0));
 console.log(binarySearch(sortedNumbers, -5));
 console.log(binarySearch(sortedNumbers, 5));
 console.log(binarySearch(sortedNumbers, 2.5));
@@ -39,6 +39,6 @@ function binarySearch(arr, key) {
   } else if (current < key) {
     return binarySearch(arr.slice(mid + 1, arr.length), key);
   } else {
-    return arr[mid]? mid: -1;
+    return arr[mid] || arr[mid] == 0 ? mid: -1;
   }
 }
