@@ -1,4 +1,11 @@
-function load(url, cb) {
+function Loader() {}
+Loader.prototype.XhrLoader$init = XhrLoader.prototype.init;
+Loader.prototype.init = function() {
+    this.XhrLoader$init();
+}
+
+Loader.prototype.load = function(url, cb) {
+  XhrLoader.prototype.load.apply(this, arguments);
   var xhr;
   if (window.XMLHttpRequest) {
     xhr = new XMLHttpRequest();
@@ -12,4 +19,4 @@ function load(url, cb) {
   }
   xhr.open("GET", url, true);
   xhr.send();
-}
+};
