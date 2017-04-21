@@ -1,5 +1,4 @@
 var baseUrl = "http://ws.audioscrobbler.com/2.0/?method=";
-var format = "&format=json";
 var val;
 
 var loader = new Loader();
@@ -9,19 +8,14 @@ var displayInfo = function(returnedData) {
   console.log(val);
 }
 
-var tailUrl = "artist.search&artist=михаил+круг&api_key="
-            + user.API_key + format;
+var tailUrl = new TailUrl().artistSearch("михаил+круг").addApiKey(user.API_key).addFormat("json").toUrl();
 loader.load(baseUrl + tailUrl, displayInfo);
 
-var tailUrl = "chart.getTopArtists&api_key="
-            + user.API_key + format;
+var tailUrl = new TailUrl().getTopArtists().addApiKey(user.API_key).addFormat("json").toUrl();
 loader.load(baseUrl + tailUrl, displayInfo);
 
-var tailUrl = "artist.getinfo&artist=михаил+круг&api_key="
-            + user.API_key + format;
+var tailUrl = new TailUrl().artistInfo("михаил+круг").addApiKey(user.API_key).addFormat("json").toUrl();
 loader.load(baseUrl + tailUrl, displayInfo);
 
-var tailUrl = "album.getinfo&api_key="
-            + user.API_key + "&artist=михаил+круг"
-            + "&album=Владимирский+Централ" + format;
+var tailUrl = new TailUrl().albumInfo().addApiKey(user.API_key).artist("михаил+круг").album("Владимирский+Централ").addFormat("json").toUrl();
 loader.load(baseUrl + tailUrl, displayInfo);
