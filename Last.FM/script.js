@@ -8,14 +8,17 @@ var displayInfo = function(returnedData) {
   console.log(val);
 }
 
-var tailUrl = new TailUrl().artistSearch("михаил+круг").addApiKey(user.API_key).addFormat("json").toUrl();
-loader.load(baseUrl + tailUrl, displayInfo);
+var tailUrl = new TailUrl();
+var url = baseUrl + tailUrl.artistSearch("михаил+круг");
 
-var tailUrl = new TailUrl().getTopArtists().addApiKey(user.API_key).addFormat("json").toUrl();
-loader.load(baseUrl + tailUrl, displayInfo);
+loader.load(url, displayInfo);
 
-var tailUrl = new TailUrl().artistInfo("михаил+круг").addApiKey(user.API_key).addFormat("json").toUrl();
-loader.load(baseUrl + tailUrl, displayInfo);
 
-var tailUrl = new TailUrl().albumInfo().addApiKey(user.API_key).artist("михаил+круг").album("Владимирский+Централ").addFormat("json").toUrl();
-loader.load(baseUrl + tailUrl, displayInfo);
+url = baseUrl + tailUrl.getTopArtists();
+loader.load(url, displayInfo);
+
+url = baseUrl + tailUrl.artistInfo("михаил+круг");
+loader.load(url, displayInfo);
+
+url = baseUrl + tailUrl.albumInfo("михаил+круг", "Владимирский+Централ");
+loader.load(url, displayInfo);

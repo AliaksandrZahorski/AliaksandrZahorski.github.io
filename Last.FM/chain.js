@@ -1,43 +1,24 @@
-function TailUrl() { 
-  var obj = {
-        value: '',
-        artistSearch: function (name) {
-          this.value += "artist.search&artist=" + name;
-          return this;
-        },
-        artist: function (name) {
-          this.value += "&artist=" + name;
-          return this;
-        },
-        artistInfo: function (name) {
-          this.value += "artist.getinfo&artist=" + name;
-          return this;
-        },
-        album: function (name) {
-          this.value += "&album=" + name;
-          return this;
-        },
-        albumInfo: function () {
-          this.value += "album.getinfo";
-          return this;
-        },
-        getTopArtists: function () {
-          this.value += "chart.getTopArtists";
-          return this;
-        },
-        addApiKey: function (apiKey) {
-          this.value += "&api_key=" + apiKey;
-          return this;
-        },
-        addFormat: function (format) {
-          this.value += "&format=" + format;
-          return this;
-        },
-
-
-        toUrl:function () {
-          return(this.value);
-        }
-      };
-  return obj;
+var TailUrl = function() {
 }
+
+var format = "json";
+var key = user.API_key;
+
+TailUrl.prototype = {  
+  artistSearch: function(name) {
+    return "artist.search&artist=" + name + "&api_key=" + key + "&format=" + format;
+  },
+  getTopArtists: function() {
+    return "chart.getTopArtists" + "&api_key=" + key + "&format=" + format;
+  },
+  artistInfo: function(name) {
+    return "artist.getinfo&artist=" + name + "&api_key=" + key + "&format=" + format;
+  },
+  albumInfo: function(name, album) {
+    return "album.getinfo" + "&api_key=" + key + "&artist=" + name + "&album="
+     + album + "&format=" + format;
+  },
+}
+
+
+
