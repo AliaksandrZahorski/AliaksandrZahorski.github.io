@@ -1,6 +1,5 @@
-function XhrLoader() {}
-XhrLoader.prototype.init = function() {}
+function Loader() {}
 
-XhrLoader.prototype.load = function(url, cb) {
+Loader.prototype.load = function(url, cb) {
   console.log("loading data from remote server..." + arguments[0]);
 }

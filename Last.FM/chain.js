@@ -22,7 +22,7 @@ function TailUrl() {
           return this;
         },
         getTopArtists: function () {
-          this.value += "chart.getTopArtists&api_key=";
+          this.value += "chart.getTopArtists";
           return this;
         },
         addApiKey: function (apiKey) {

@@ -1,7 +1,7 @@
 var baseUrl = "http://ws.audioscrobbler.com/2.0/?method=";
 var val;
 
-var loader = new Loader();
+var loader = new XhrLoader();
 
 var displayInfo = function(returnedData) {
   val = JSON.parse(returnedData);
