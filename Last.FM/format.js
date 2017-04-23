@@ -1,6 +1,6 @@
 var ansverFormat = {};
 
-Object.defineProperty(user,
+Object.defineProperty(ansverFormat,
   "format", {
     value: "json",
     writable: true,

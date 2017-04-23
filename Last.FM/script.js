@@ -10,9 +10,7 @@ var displayInfo = function(returnedData) {
 
 var tailUrl = new TailUrl();
 var url = baseUrl + tailUrl.artistSearch("михаил+круг");
-
 loader.load(url, displayInfo);
-
 
 url = baseUrl + tailUrl.getTopArtists();
 loader.load(url, displayInfo);

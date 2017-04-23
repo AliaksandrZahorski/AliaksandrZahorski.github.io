@@ -1,7 +1,6 @@
-var TailUrl = function() {
-}
+var TailUrl = function() {}
 
-var format = "json";
+var format = ansverFormat.format;
 var key = user.API_key;
 
 TailUrl.prototype = {  
@@ -19,6 +18,3 @@ TailUrl.prototype = {
      + album + "&format=" + format;
   },
 }
-
-
-
