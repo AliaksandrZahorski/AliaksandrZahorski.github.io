@@ -1,20 +1,22 @@
-var TailUrl = function() {}
+var UrlBuilder = function() {
+}
 
 var format = ansverFormat.format;
 var key = user.API_key;
+var baseUrl = "http://ws.audioscrobbler.com/2.0/?method=";
 
-TailUrl.prototype = {  
+UrlBuilder.prototype = {  
   artistSearch: function(name) {
-    return "artist.search&artist=" + name + "&api_key=" + key + "&format=" + format;
+    return baseUrl + "artist.search&artist=" + name + "&api_key=" + key + "&format=" + format;
   },
   getTopArtists: function() {
-    return "chart.getTopArtists" + "&api_key=" + key + "&format=" + format;
+    return baseUrl + "chart.getTopArtists" + "&api_key=" + key + "&format=" + format;
   },
   artistInfo: function(name) {
-    return "artist.getinfo&artist=" + name + "&api_key=" + key + "&format=" + format;
+    return baseUrl + "artist.getinfo&artist=" + name + "&api_key=" + key + "&format=" + format;
   },
   albumInfo: function(name, album) {
-    return "album.getinfo" + "&api_key=" + key + "&artist=" + name + "&album="
+    return baseUrl + "album.getinfo" + "&api_key=" + key + "&artist=" + name + "&album="
      + album + "&format=" + format;
   },
 }

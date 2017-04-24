@@ -1,6 +1,5 @@
-var baseUrl = "http://ws.audioscrobbler.com/2.0/?method=";
 var val;
-
+var url = new UrlBuilder();
 var loader = new XhrLoader();
 
 var displayInfo = function(returnedData) {
@@ -8,15 +7,7 @@ var displayInfo = function(returnedData) {
   console.log(val);
 }
 
-var tailUrl = new TailUrl();
-var url = baseUrl + tailUrl.artistSearch("михаил+круг");
-loader.load(url, displayInfo);
-
-url = baseUrl + tailUrl.getTopArtists();
-loader.load(url, displayInfo);
-
-url = baseUrl + tailUrl.artistInfo("михаил+круг");
-loader.load(url, displayInfo);
-
-url = baseUrl + tailUrl.albumInfo("михаил+круг", "Владимирский+Централ");
-loader.load(url, displayInfo);
+loader.load(url.artistSearch("михаил+круг"), displayInfo);
+loader.load(url.getTopArtists(), displayInfo);
+loader.load(url.artistInfo("михаил+круг"), displayInfo);
+loader.load(url.albumInfo("михаил+круг", "Владимирский+Централ"), displayInfo);
