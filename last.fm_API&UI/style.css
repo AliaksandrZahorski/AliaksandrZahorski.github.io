@@ -50,6 +50,10 @@ html {
 article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
 	display: block;
 }
+a {
+	color: blue;
+	text-decoration:none;
+}
 body {
 	font: 1.8em Arial, sans-serif;
 	width: 100%;

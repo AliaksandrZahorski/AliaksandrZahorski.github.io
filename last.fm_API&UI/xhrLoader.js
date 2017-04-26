@@ -1,6 +1,6 @@
 function XhrLoader() {}
 
-XhrLoader.prototype.load = function(url, cb) {
+XhrLoader.prototype.load = function(query, cb) {
   var xhr;
   if (window.XMLHttpRequest) {
     xhr = new XMLHttpRequest();
@@ -9,9 +9,9 @@ XhrLoader.prototype.load = function(url, cb) {
   }
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4 && xhr.status == 200 && typeof cb === 'function') {
-      cb(xhr.responseText);
+      cb(xhr.responseText, query.command);
     }
   }
-  xhr.open("GET", url, true);
+  xhr.open("GET", query.url, true);
   xhr.send();
 };
