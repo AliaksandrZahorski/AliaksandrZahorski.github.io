@@ -32,6 +32,6 @@ addEvent(
     document.getElementById('search'),
     'click',
     function () {
-      controller("artist.search");
+      controller("search");
     }
 );

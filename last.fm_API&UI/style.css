@@ -91,6 +91,89 @@ body {
 	padding: 1em 0 100px;
 }
 
+#text_box {
+  margin: 1em;
+  display: flex;
+  align-items: center;
+}
+
+#album_name {
+  text-align: left;
+  flex-grow: 1;
+}
+
+#album_likes {
+  text-align: right;
+}
+
+#search_box {
+    display: flex;
+    justify-content: center;
+    border:0;
+}
+
+#searchBorder {
+	margin: 1em;
+  border: 1px solid #000;
+    
+}
+
+input,
+button {
+    height: 2em;
+    background-color:transparent;
+    border:0;
+    font: 1em Arial, sans-serif;
+}
+
+input {
+    width: 15em;
+}
+
+
+
+#info_box::after {
+        content: "&nbsp;";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        height: 0;
+        line-height: 0;
+}
+
+#artist_img {
+	float: left;
+	margin: 0em 1em 1em 0;
+}
+
+#image_box {
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+#pagination_box {
+  display: flex;
+  justify-content: center;
+}
+
+#pagination_box > a {
+  margin: 0.5em;
+}
+
+#active {
+  background-color: #A9A9A9;
+}
+
+#image_box > img {
+	margin: 1em;
+}
+
+#track_box > a {
+	margin: 0.5em;
+	display: block;
+}
+
 
 
 
