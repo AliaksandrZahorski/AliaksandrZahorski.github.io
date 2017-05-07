@@ -3,8 +3,6 @@ var ViewBuilder = function() {
 
 ViewBuilder.prototype = {  
   artist: function(returnedData) {
-    console.log('view Artist');
-
     var content = JSON.parse(returnedData);
 
     hide("search_box");
@@ -24,7 +22,6 @@ ViewBuilder.prototype = {
     info_box.appendChild(DOM_text);
   },
   artistTopAlbums: function(returnedData) {
-    console.log('view artistTopAlbums');
     var content = JSON.parse(returnedData);
 
     hide("image_box");
@@ -36,7 +33,6 @@ ViewBuilder.prototype = {
     }
   },
   topArtists: function(returnedData) {
-    console.log('view TopArtists');
     var content = JSON.parse(returnedData);
 
     hide("search_box");
@@ -53,7 +49,6 @@ ViewBuilder.prototype = {
     }
   },
   album: function(returnedData) {
-    console.log('view Album');
     var content = JSON.parse(returnedData);
 
     hide("search_box");
@@ -96,8 +91,6 @@ ViewBuilder.prototype = {
     }
   },
   search: function(returnedData) {
-    console.log('view Search');
-
     hide("search_box");
     hide("text_box");
     hide("info_box");
@@ -125,7 +118,6 @@ ViewBuilder.prototype = {
     inputSearch.appendChild(searchButton);
   },
   searchResults: function(returnedData) {
-    console.log('view Search results');
     var content = JSON.parse(returnedData);
 
     hide("search_box");

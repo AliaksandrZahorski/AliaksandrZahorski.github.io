@@ -18,17 +18,12 @@ function router () {
 }
 
 route('/', function () {
-  console.log('home');
-  //query = urlBuilder.getTopArtists();
-  //loader.load(query, displayInfo);
 });
 route('/topArtist', function () {
-  console.log('topArtist');
   var query = urlBuilder.getTopArtists();
   loader.load(query, viewBuilder.topArtists);
 });
 route('/artist', function () {
-  console.log('artist');
   var query = urlBuilder.artistInfo("Sting");
   loader.load(query, viewBuilder.artist);
 
@@ -36,16 +31,13 @@ route('/artist', function () {
   loader.load(query2, viewBuilder.artistTopAlbums);
 });
 route('/album', function () {
-  console.log('album');
   query = urlBuilder.albumInfo("Sting", "Ten Summoner's Tales");
   loader.load(query, viewBuilder.album);
 });
 route('/search', function () {
-  console.log('search');
   viewBuilder.search();
 });
 route('/search_results', function () {
-  console.log('search_results');
   query = urlBuilder.artistSearch(artistName);
   loader.load(query, viewBuilder.searchResults);
 });

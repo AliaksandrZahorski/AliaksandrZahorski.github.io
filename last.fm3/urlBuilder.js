@@ -9,26 +9,31 @@ var baseUrl = "http://ws.audioscrobbler.com/2.0/?method=";
 UrlBuilder.prototype = {  
   artistSearch: function(name) {
     paginationPage = paginationPage || 1;
-    query.url = baseUrl + "artist.search&artist=" + name + "&api_key=" + key
-    + "&limit=6" + "&page=" + paginationPage + "&format=" + format;
+    var url = baseUrl + "artist.search&artist=" + name + "&api_key=" + key
+    + "&limit=6" + "&page=" + paginationPage + "&format=" + format; 
+    query.url = encodeURI(url);
     return query;
   },
   getTopArtists: function() {
-    query.url = baseUrl + "chart.getTopArtists" + "&api_key=" + key + "&format=" + format;
+    var url = baseUrl + "chart.getTopArtists" + "&api_key=" + key + "&format=" + format;
+    query.url = encodeURI(url);
     return query;
   },
   artistInfo: function(name) {
-    query.url = baseUrl + "artist.getinfo&artist=" + name + "&api_key=" + key + "&format=" + format;
+    var url = baseUrl + "artist.getinfo&artist=" + name + "&api_key=" + key + "&format=" + format;
+    query.url = encodeURI(url);
     return query;
   },
   albumInfo: function(name, album) {
-    query.url = baseUrl + "album.getinfo" + "&api_key=" + key + "&artist=" + name + "&album="
+    var url = baseUrl + "album.getinfo" + "&api_key=" + key + "&artist=" + name + "&album="
      + album + "&format=" + format;
+    query.url = encodeURI(url);
     return query;
   },
   artistGetTopAlbums: function(name) {
-    query.url = baseUrl + "artist.gettopalbums&artist=" + name + "&api_key=" + key + "&format=" + format
+    var url = baseUrl + "artist.gettopalbums&artist=" + name + "&api_key=" + key + "&format=" + format
       + "&limit=6";
+    query.url = encodeURI(url);
     return query;
   },
 }
