@@ -4,11 +4,18 @@ const url = 'https://newsapi.org/v2/top-headlines?' +
 
 const req = new Request(url);
 
-const htmlToElement = html => {
-  const template = document.createElement('template');
-  template.innerHTML = html;
-  return template.content.firstChild;
-}
+const markup = articles => ( `
+  ${articles.map(article => (
+    `<article>
+    <header>
+    <h1><a href=${article.url} title=${article.title}>${article.title}</a></h1>
+    <img src=${article.urlToImage} alt=${article.title} />
+    <p>Published: <time>${new Date(article.publishedAt).toLocaleTimeString()}</time></p>
+    </header>
+    <p>${article.description}</p>
+    </article>`)
+  ).join(' ')}
+  `);
 
 fetch(req)
   .then(
@@ -17,12 +24,9 @@ fetch(req)
   .then(
     ({ articles }) => {
       console.log(articles);
-      document.querySelector("main").appendChild(htmlToElement(articles[1].author));
+      document.querySelector("div").innerHTML = markup(articles);
     }
   )
   .catch(
     error => console.log(error.message)
   );
-
-
-document.main.appendChild(htmlToElement());
