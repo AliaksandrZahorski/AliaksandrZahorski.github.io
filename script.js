@@ -2,8 +2,6 @@ const url = 'https://newsapi.org/v2/top-headlines?' +
           'sources=bbc-news&' +
           'apiKey=a17853ebbbad40ecadb0b6ca47fe356d';
 
-const req = new Request(url);
-
 const markup = articles => ( `
   ${articles.map(article => (
     `<article>
@@ -14,19 +12,18 @@ const markup = articles => ( `
     </header>
     <p>${article.description}</p>
     </article>`)
-  ).join(' ')}
-  `);
+  ).join(' ')}`
+);
+
+const req = new Request(url);
 
 fetch(req)
-  .then(
-    response => response.json()
-  )
+  .then( response => response.json() )
   .then(
     ({ articles }) => {
-      console.log(articles);
       document.querySelector("div").innerHTML = markup(articles);
     }
   )
   .catch(
-    error => console.log(error.message)
+    error => document.querySelector("div").innerHTML = `Some happens! ${error.message}`
   );
