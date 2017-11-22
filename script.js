@@ -1,12 +1,10 @@
-const riseFast = (arr) => {
-    for (var x = 1, il = arr.length; x < il; x++) {
-        if (arr[x] <= arr[x-1]) return false;
-    }
-    return true;
-}
+const url = 'https://newsapi.org/v2/top-headlines?' +
+          'sources=bbc-news&' +
+          'apiKey=a17853ebbbad40ecadb0b6ca47fe356d';
 
-const almostIncreasingSequence = s => riseFast(s);
+const req = new Request(url);
 
-const sequence = [1, 2, 1, 2];
-
-console.log(almostIncreasingSequence(sequence));
+fetch(req)
+  .then(response => response.json())
+  .then(({ articles }) => console.log(articles))
+  .catch(error => console.log(error.message));
