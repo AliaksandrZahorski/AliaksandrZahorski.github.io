@@ -15,13 +15,17 @@ nav {
 
 li {
   list-style-type: none;
+  padding: 20px 0;
 }
 
-a {
-  text-decoration: none;
-  color: var(--text-color);
+a { border-bottom: thin solid;
+    color: rgb(0,0,192);
+    font-weight: bolder;
+    text-decoration: none;
 }
-
+a:visited { color: rgb(160,0,160); }
+a:active { color: rgb(192,0,0); }
+a:active, a:focus, a:hover { border-bottom-width: medium; }
 
 div {
     float: right;

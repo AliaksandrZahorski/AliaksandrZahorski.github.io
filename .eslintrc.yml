@@ -1,0 +1,30 @@
+parserOptions:
+    ecmaVersion: 7
+    sourceType: module
+    ecmaFeatures:
+      experimentalObjectRestSpread: true
+      jsx: true
+env:
+    es6: true
+    browser: true
+    node: true
+    jest: true
+settings:
+  import/resolver: webpack
+rules:
+  semi: 2
+  arrow-parens: 0
+  no-nested-ternary: 0
+  no-plusplus: 0
+  no-return-assign: 0
+  func-names: 0
+  comma-dangle:
+    - 2
+    - functions: ignore
+      objects: always-multiline
+      arrays: always-multiline
+  no-unused-expressions:
+    - 2
+    - allowShortCircuit: true
+      allowTernary: true
+  no-underscore-dangle: 0

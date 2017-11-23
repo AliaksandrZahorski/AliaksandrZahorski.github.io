@@ -1,5 +1,13 @@
-const url = 'https://newsapi.org/v2/top-headlines?' +
-          'sources=bbc-news&' +
+const urlList = new Map();
+
+urlList.set('1', 'bbc-news');
+urlList.set('2', 'cnn');
+urlList.set('3', 'rt');
+
+currentUrl = {name: urlList.get('1')};
+
+const url = name => 'https://newsapi.org/v2/top-headlines?' +
+          `sources=${name}&` +
           'apiKey=a17853ebbbad40ecadb0b6ca47fe356d';
 
 const markup = articles => ( `
@@ -15,18 +23,27 @@ const markup = articles => ( `
   ).join(' ')}`
 );
 
-const req = new Request(url);
-
-fetch(req)
-  .then( response => response.json() )
-  .then(
-    ({ articles }) => {
-      document.querySelector("div").innerHTML = markup(articles);
-    }
-  )
-  .catch(
-    error => document.querySelector("div").innerHTML = `Some happens! ${error.message}`
+const render = () => {
+  const reqUrl = url(currentUrl.name);
+  const req = new Request(reqUrl);
+  return (
+    fetch(req)
+    .then( response => response.json() )
+    .then(
+      ({ articles }) => {
+        document.querySelector("div").innerHTML = markup(articles);
+      }
+    )
+    .catch(
+      error => document.querySelector("div").innerHTML = `Some happens! ${error.message}`
+    )
   );
+};
 
+render();
 
-  const getLink = e => console.log(e.target.getAttribute('value'));
+const getLink = e => {
+  const val = e.target.getAttribute('value');
+  currentUrl = val ? {name: urlList.get(val)} : urlList.get('1');
+  render();
+};
