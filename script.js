@@ -27,3 +27,6 @@ fetch(req)
   .catch(
     error => document.querySelector("div").innerHTML = `Some happens! ${error.message}`
   );
+
+
+  const getLink = e => console.log(e.target.getAttribute('value'));
