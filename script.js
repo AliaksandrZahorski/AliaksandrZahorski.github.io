@@ -44,6 +44,6 @@ render();
 
 const getLink = e => {
   const val = e.target.getAttribute('value');
-  currentUrl = val ? {name: urlList.get(val)} : urlList.get('1');
+  currentUrl.name = val ? urlList.get(val) : urlList.get('1');
   render();
 };
