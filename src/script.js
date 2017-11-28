@@ -1,10 +1,12 @@
+require('whatwg-fetch');
+
 const urlList = new Map();
 
 urlList.set('1', 'bbc-news');
 urlList.set('2', 'cnn');
 urlList.set('3', 'rt');
 
-currentUrl = {name: urlList.get('1')};
+const currentUrl = {name: urlList.get('1')};
 
 const url = name => 'https://newsapi.org/v2/top-headlines?' +
           `sources=${name}&` +
@@ -42,7 +44,7 @@ const render = () => {
 
 render();
 
-const getLink = e => {
+window.getLink = e => {
   const val = e.target.getAttribute('value');
   currentUrl.name = val ? urlList.get(val) : urlList.get('1');
   render();
