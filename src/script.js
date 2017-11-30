@@ -1,5 +1,3 @@
-require('whatwg-fetch');
-
 const urlList = new Map();
 
 urlList.set('1', 'bbc-news');
@@ -27,9 +25,9 @@ const markup = articles => ( `
 
 const render = () => {
   const reqUrl = url(currentUrl.name);
-  const req = new Request(reqUrl);
+
   return (
-    fetch(req)
+    fetch(reqUrl)
     .then( response => response.json() )
     .then(
       ({ articles }) => {
@@ -37,7 +35,7 @@ const render = () => {
       }
     )
     .catch(
-      error => document.querySelector("div").innerHTML = `Some happens! ${error.message}`
+       error => document.querySelector("div").innerHTML = `Some happens! ${error.message}`
     )
   );
 };
