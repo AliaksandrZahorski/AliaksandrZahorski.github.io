@@ -1,12 +1,20 @@
 var path = require('path');
 var webpack = require('webpack');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+
+const env = process.env.NODE_ENV;
+const isDevelop = env === 'development';
 
 module.exports = {
      entry: ['babel-polyfill', './src/script.js'],
+     plugins: [
+       new CleanWebpackPlugin(['dist']),
+     ],
      output: {
          path: path.resolve(__dirname, 'dist'),
          filename: 'script.js',
      },
+     devtool: isDevelop ? 'source-map' : false,
      module: {
          rules: [
             {
@@ -26,5 +34,4 @@ module.exports = {
      stats: {
          colors: true,
      },
-     devtool: 'source-map',
  };
