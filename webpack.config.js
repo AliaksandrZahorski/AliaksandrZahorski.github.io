@@ -15,6 +15,13 @@ module.exports = {
          filename: 'script.js',
      },
      devtool: isDevelop ? 'source-map' : false,
+     devServer: {
+       port: 8080,
+       historyApiFallback: {
+          index: 'index.html',
+       },
+       contentBase: 'src',
+     },
      module: {
          rules: [
             {
