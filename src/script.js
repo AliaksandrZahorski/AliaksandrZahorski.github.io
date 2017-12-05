@@ -1,5 +1,6 @@
 import navigation from './navigation';
 import render from './render';
+import css from './css/style.css';
 
 const urlList = new Map();
 

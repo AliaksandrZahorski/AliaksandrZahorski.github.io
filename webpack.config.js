@@ -5,21 +5,26 @@ module.exports = {
      entry: ['babel-polyfill', './src/script.js'],
      output: {
          path: path.resolve(__dirname, 'dist'),
-         filename: 'script.js'
+         filename: 'script.js',
      },
      module: {
-         loaders: [
+         rules: [
+            {
+               test: /.jsx?$/,
+               loader: 'babel-loader',
+               exclude: /node_modules/,
+               query: {
+                 presets: ['env'],
+               },
+             },
              {
-                 test: /\.js$/,
-                 loader: 'babel-loader',
-                 query: {
-                     presets: ['env']
-                 }
-             }
-         ]
+               test: /\.css$/,
+               use: [ 'style-loader', 'css-loader' ],
+             },
+         ],
      },
      stats: {
-         colors: true
+         colors: true,
      },
-     devtool: 'source-map'
+     devtool: 'source-map',
  };
