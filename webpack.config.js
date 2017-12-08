@@ -1,18 +1,25 @@
 var path = require('path');
 var webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const env = process.env.NODE_ENV;
 const isDevelop = env === 'development';
 
 module.exports = {
-     entry: ['babel-polyfill', './src/script.js'],
+     entry: {
+       script: './src/script.js',
+       render: './src/render.js',
+     },
      plugins: [
        new CleanWebpackPlugin(['dist']),
+       new HtmlWebpackPlugin({
+         title: 'Code Splitting',
+       }),
      ],
      output: {
          path: path.resolve(__dirname, 'dist'),
-         filename: 'script.js',
+         filename: '[name].js',
      },
      devtool: isDevelop ? 'source-map' : false,
      devServer: {
@@ -35,6 +42,12 @@ module.exports = {
              {
                test: /\.css$/,
                use: [ 'style-loader', 'css-loader' ],
+             },
+             {
+               test: /\.html$/,
+               exclude: [
+                 './src/index.html',
+               ],
              },
          ],
      },

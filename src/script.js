@@ -1,5 +1,5 @@
 import navigation from './navigation';
-import render from './render';
+import newsRequest from './newsrequest';
 import css from './css/style.css';
 
 const urlList = new Map();
@@ -11,12 +11,12 @@ urlList.set('3', 'rt');
 export const currentUrl = {name: urlList.get('1')};
 
 document.querySelector("ul").innerHTML = navigation(urlList);
-render();
+newsRequest();
 
 const getNews = e => {
   const val = e.target.getAttribute('value');
   currentUrl.name = val ? urlList.get(val) : urlList.get('1');
-  render();
+  newsRequest();
 };
 
 const nav = document.getElementsByClassName("navigation");
