@@ -9,17 +9,13 @@ const isDevelop = env === 'development';
 module.exports = {
      entry: {
        script: './src/script.js',
-       render: './src/render.js',
      },
      plugins: [
        new CleanWebpackPlugin(['dist']),
-       new HtmlWebpackPlugin({
-         title: 'Code Splitting',
-       }),
      ],
      output: {
          path: path.resolve(__dirname, 'dist'),
-         filename: '[name].js',
+         filename: 'script.js',
      },
      devtool: isDevelop ? 'source-map' : false,
      devServer: {
@@ -32,11 +28,11 @@ module.exports = {
      module: {
          rules: [
             {
-               test: /.jsx?$/,
+               test: /.js?$/,
                loader: 'babel-loader',
                exclude: /node_modules/,
                query: {
-                 presets: ['env'],
+                 presets: ['env','stage-2'],
                },
              },
              {

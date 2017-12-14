@@ -1,4 +1,7 @@
 import { currentUrl } from './script';
+import  store  from './script';
+
+const { link } = store.getState();
 
 const url = name => `https://newsapi.org/v2/top-headlines?sources=${name}
   &apiKey=a17853ebbbad40ecadb0b6ca47fe356d`;
@@ -19,7 +22,7 @@ const markup = articles => ( `
 
 const render = () => {
   document.querySelector("div").innerHTML = 'Processing...';
-  const reqUrl = url(currentUrl.name);
+  const reqUrl = url(link);
   return (
     fetch(reqUrl)
     .then( response => response.json() )

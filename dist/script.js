@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,56 +73,27 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _script = __webpack_require__(1);
-
-var url = function url(name) {
-  return 'https://newsapi.org/v2/top-headlines?sources=' + name + '\n  &apiKey=a17853ebbbad40ecadb0b6ca47fe356d';
-};
-
-var markup = function markup(articles) {
-  return '\n  ' + articles.map(function (article) {
-    return '<article>\n    <header>\n    <h1><a href=' + article.url + ' title=' + article.title + '>' + article.title + '</a></h1>\n    <img src=' + article.urlToImage + ' alt=' + article.title + ' />\n    <p>Published: <time>' + new Date(article.publishedAt).toLocaleTimeString() + '</time></p>\n    </header>\n    <p>' + article.description + '</p>\n    </article>';
-  }).join(' ');
-};
-
-var render = function render() {
-  document.querySelector("div").innerHTML = 'Processing...';
-  var reqUrl = url(_script.currentUrl.name);
-  return fetch(reqUrl).then(function (response) {
-    return response.json();
-  }).then(function (_ref) {
-    var articles = _ref.articles;
-
-    document.querySelector("div").innerHTML = markup(articles);
-  }).catch(function (error) {
-    return document.querySelector("div").innerHTML = 'Some happens! ' + error.message;
-  });
-};
-
-exports.default = render;
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.currentUrl = undefined;
+exports.store = undefined;
 
 var _navigation = __webpack_require__(2);
 
 var _navigation2 = _interopRequireDefault(_navigation);
 
-var _newsrequest = __webpack_require__(3);
+var _store = __webpack_require__(3);
 
-var _newsrequest2 = _interopRequireDefault(_newsrequest);
+var _store2 = _interopRequireDefault(_store);
 
-var _style = __webpack_require__(4);
+var _reducer = __webpack_require__(4);
+
+var _reducer2 = _interopRequireDefault(_reducer);
+
+var _loger = __webpack_require__(5);
+
+var _loger2 = _interopRequireDefault(_loger);
+
+var _const = __webpack_require__(1);
+
+var _style = __webpack_require__(6);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -134,23 +105,42 @@ urlList.set('1', 'bbc-news');
 urlList.set('2', 'cnn');
 urlList.set('3', 'rt');
 
-var currentUrl = exports.currentUrl = { name: urlList.get('1') };
+var store = exports.store = (0, _store2.default)(_reducer2.default);
+
+var myStore = null;
+if (myStore === null) {
+  myStore = store;
+  (0, _loger.logerInit)(store);
+}
+store.subscribe(_loger2.default);
+
+// console.log('store', store.getState() );
+
+store.dispatch({
+  type: _const.UPDATE_LINK,
+  link: urlList.get('1')
+});
+console.log('store', store.getState());
+
+store.dispatch({
+  type: _const.UPDATE_LINK,
+  link: urlList.get('2')
+});
+console.log('store', store.getState());
 
 document.querySelector("ul").innerHTML = (0, _navigation2.default)(urlList);
-(0, _newsrequest2.default)();
 
-var getNews = function getNews(e) {
-  var val = e.target.getAttribute('value');
-  currentUrl.name = val ? urlList.get(val) : urlList.get('1');
-  (0, _newsrequest2.default)();
-};
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var nav = document.getElementsByClassName("navigation");
-for (var i = 0; i < nav.length; i++) {
-  nav[i].addEventListener('click', function (event) {
-    return getNews(event);
-  });
-}
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var UPDATE_LINK = exports.UPDATE_LINK = 'UPDATE_LINK';
 
 /***/ }),
 /* 2 */
@@ -183,36 +173,108 @@ exports.default = navigation;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _render = __webpack_require__(0);
-
-var _render2 = _interopRequireDefault(_render);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var newsRequest = function newsRequest() {
-  var element = document.querySelector("div");
-  element.innerHTML = '';
-  var button = document.createElement('button');
-  button.innerHTML = 'Get news';
-  element.appendChild(button);
-  button.addEventListener('click', function (e) {
-    new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 0)).then(function (module) {
-      module.default();
-    });
-  });
+var createStore = function createStore(reducer) {
+  var state = void 0;
+  var subscribers = [];
+  var store = {
+    dispatch: function dispatch(action) {
+      state = reducer(state, action);
+      subscribers.forEach(function (handler) {
+        return handler();
+      });
+    },
+    getState: function getState() {
+      return state;
+    },
+    subscribe: function subscribe(handler) {
+      subscribers.push(handler);
+    },
+    unsubscribe: function unsubscribe(handler) {
+      var index = subscribers.indexOf(handler);
+      if (index > 0) {
+        subscribers.splice(index, 1);
+      }
+    }
+  };
+  return store;
 };
 
-exports.default = newsRequest;
+exports.default = createStore;
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _const = __webpack_require__(1);
+
+var initialState = {
+  link: null
+};
+
+var reducer = function reducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+  var action = arguments[1];
+
+  switch (action.type) {
+    case _const.UPDATE_LINK:
+      {
+        return _extends({}, state, {
+          link: action.link
+        });
+      };
+    default:
+      return state;
+  }
+};
+
+exports.default = reducer;
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.logerInit = undefined;
+
+var _script = __webpack_require__(0);
+
+var _script2 = _interopRequireDefault(_script);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var logerStore = null;
+var logerInit = exports.logerInit = function logerInit(store) {
+  logerStore = store;
+};
+
+var loger = function loger() {
+  console.log('loger', logerStore.getState());
+};
+
+exports.default = loger;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(5);
+var content = __webpack_require__(7);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -220,7 +282,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(7)(content, options);
+var update = __webpack_require__(9)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -237,10 +299,10 @@ if(false) {
 }
 
 /***/ }),
-/* 5 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(6)(undefined);
+exports = module.exports = __webpack_require__(8)(undefined);
 // imports
 
 
@@ -251,7 +313,7 @@ exports.push([module.i, ":root {\r\n  --menu-width: 200px;\r\n  --text-color: bl
 
 
 /***/ }),
-/* 6 */
+/* 8 */
 /***/ (function(module, exports) {
 
 /*
@@ -333,7 +395,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 7 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -379,7 +441,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(8);
+var	fixUrls = __webpack_require__(10);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -692,7 +754,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 8 */
+/* 10 */
 /***/ (function(module, exports) {
 
 
@@ -788,3 +850,4 @@ module.exports = function (css) {
 
 /***/ })
 /******/ ]);
+//# sourceMappingURL=script.js.map

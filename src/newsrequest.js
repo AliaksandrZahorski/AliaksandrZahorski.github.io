@@ -7,10 +7,8 @@ const newsRequest = () => {
   button.innerHTML = 'Get news';
   element.appendChild(button);
   button.addEventListener('click', e => {
-    System.import('./render')
-      .then(module => {
-        module.default();
-      });
+    console.log(e);
+    render();
   });
 };
 
