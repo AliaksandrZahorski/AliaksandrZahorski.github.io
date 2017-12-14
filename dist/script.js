@@ -114,21 +114,27 @@ if (myStore === null) {
 }
 store.subscribe(_loger2.default);
 
-// console.log('store', store.getState() );
-
 store.dispatch({
   type: _const.UPDATE_LINK,
   link: urlList.get('1')
 });
-console.log('store', store.getState());
-
-store.dispatch({
-  type: _const.UPDATE_LINK,
-  link: urlList.get('2')
-});
-console.log('store', store.getState());
 
 document.querySelector("ul").innerHTML = (0, _navigation2.default)(urlList);
+
+var getNews = function getNews(e) {
+  var val = e.target.getAttribute('value');
+  store.dispatch({
+    type: _const.UPDATE_LINK,
+    link: urlList.get(val)
+  });
+};
+
+var nav = document.getElementsByClassName("navigation");
+for (var i = 0; i < nav.length; i++) {
+  nav[i].addEventListener('click', function (event) {
+    return getNews(event);
+  });
+}
 
 /***/ }),
 /* 1 */

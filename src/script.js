@@ -26,3 +26,16 @@ store.dispatch({
 });
 
 document.querySelector("ul").innerHTML = navigation(urlList);
+
+const getNews = e => {
+  const val = e.target.getAttribute('value');
+  store.dispatch({
+    type: UPDATE_LINK,
+    link: urlList.get(val),
+  });
+};
+
+const nav = document.getElementsByClassName("navigation");
+for (var i = 0;i<nav.length;i++) {
+  nav[i].addEventListener('click', event => getNews(event));
+}
