@@ -1,7 +1,7 @@
-import { currentUrl } from './script';
-import  store  from './script';
-
-const { link } = store.getState();
+let renderStore = null;
+export const renderInit = store => {
+  renderStore = store;
+};
 
 const url = name => `https://newsapi.org/v2/top-headlines?sources=${name}
   &apiKey=a17853ebbbad40ecadb0b6ca47fe356d`;
@@ -22,6 +22,7 @@ const markup = articles => ( `
 
 const render = () => {
   document.querySelector("div").innerHTML = 'Processing...';
+  const { link } = renderStore.getState();
   const reqUrl = url(link);
   return (
     fetch(reqUrl)

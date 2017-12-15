@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,14 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.store = undefined;
+var UPDATE_LINK = exports.UPDATE_LINK = 'UPDATE_LINK';
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var _navigation = __webpack_require__(2);
 
@@ -91,9 +98,13 @@ var _loger = __webpack_require__(5);
 
 var _loger2 = _interopRequireDefault(_loger);
 
-var _const = __webpack_require__(1);
+var _render = __webpack_require__(6);
 
-var _style = __webpack_require__(6);
+var _render2 = _interopRequireDefault(_render);
+
+var _const = __webpack_require__(0);
+
+var _style = __webpack_require__(7);
 
 var _style2 = _interopRequireDefault(_style);
 
@@ -104,20 +115,6 @@ var urlList = new Map();
 urlList.set('1', 'bbc-news');
 urlList.set('2', 'cnn');
 urlList.set('3', 'rt');
-
-var store = exports.store = (0, _store2.default)(_reducer2.default);
-
-var myStore = null;
-if (myStore === null) {
-  myStore = store;
-  (0, _loger.logerInit)(store);
-}
-store.subscribe(_loger2.default);
-
-store.dispatch({
-  type: _const.UPDATE_LINK,
-  link: urlList.get('1')
-});
 
 document.querySelector("ul").innerHTML = (0, _navigation2.default)(urlList);
 
@@ -136,17 +133,21 @@ for (var i = 0; i < nav.length; i++) {
   });
 }
 
-/***/ }),
-/* 1 */
-/***/ (function(module, exports, __webpack_require__) {
+var store = (0, _store2.default)(_reducer2.default);
 
-"use strict";
+var myStore = null;
+if (myStore === null) {
+  myStore = store;
+  (0, _loger.logerInit)(store);
+  (0, _render.renderInit)(store);
+}
+store.subscribe(_loger2.default);
+store.subscribe(_render2.default);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
+store.dispatch({
+  type: _const.UPDATE_LINK,
+  link: urlList.get('1')
 });
-var UPDATE_LINK = exports.UPDATE_LINK = 'UPDATE_LINK';
 
 /***/ }),
 /* 2 */
@@ -220,7 +221,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _const = __webpack_require__(1);
+var _const = __webpack_require__(0);
 
 var initialState = {
   link: null
@@ -254,14 +255,6 @@ exports.default = reducer;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logerInit = undefined;
-
-var _script = __webpack_require__(0);
-
-var _script2 = _interopRequireDefault(_script);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 var logerStore = null;
 var logerInit = exports.logerInit = function logerInit(store) {
   logerStore = store;
@@ -277,10 +270,55 @@ exports.default = loger;
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var renderStore = null;
+var renderInit = exports.renderInit = function renderInit(store) {
+  renderStore = store;
+};
+
+var url = function url(name) {
+  return 'https://newsapi.org/v2/top-headlines?sources=' + name + '\n  &apiKey=a17853ebbbad40ecadb0b6ca47fe356d';
+};
+
+var markup = function markup(articles) {
+  return '\n  ' + articles.map(function (article) {
+    return '<article>\n    <header>\n    <h1><a href=' + article.url + ' title=' + article.title + '>' + article.title + '</a></h1>\n    <img src=' + article.urlToImage + ' alt=' + article.title + ' />\n    <p>Published: <time>' + new Date(article.publishedAt).toLocaleTimeString() + '</time></p>\n    </header>\n    <p>' + article.description + '</p>\n    </article>';
+  }).join(' ');
+};
+
+var render = function render() {
+  document.querySelector("div").innerHTML = 'Processing...';
+
+  var _renderStore$getState = renderStore.getState(),
+      link = _renderStore$getState.link;
+
+  var reqUrl = url(link);
+  return fetch(reqUrl).then(function (response) {
+    return response.json();
+  }).then(function (_ref) {
+    var articles = _ref.articles;
+
+    document.querySelector("div").innerHTML = markup(articles);
+  }).catch(function (error) {
+    return document.querySelector("div").innerHTML = 'Some happens! ' + error.message;
+  });
+};
+
+exports.default = render;
+
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(7);
+var content = __webpack_require__(8);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -288,7 +326,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(9)(content, options);
+var update = __webpack_require__(10)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -305,10 +343,10 @@ if(false) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(8)(undefined);
+exports = module.exports = __webpack_require__(9)(undefined);
 // imports
 
 
@@ -319,7 +357,7 @@ exports.push([module.i, ":root {\r\n  --menu-width: 200px;\r\n  --text-color: bl
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports) {
 
 /*
@@ -401,7 +439,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -447,7 +485,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(10);
+var	fixUrls = __webpack_require__(11);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -760,7 +798,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports) {
 
 
@@ -856,4 +894,3 @@ module.exports = function (css) {
 
 /***/ })
 /******/ ]);
-//# sourceMappingURL=script.js.map
