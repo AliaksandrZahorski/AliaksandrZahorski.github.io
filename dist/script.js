@@ -253,18 +253,50 @@ exports.default = reducer;
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
 var logerStore = null;
 var logerInit = exports.logerInit = function logerInit(store) {
-  logerStore = store;
+    logerStore = store;
 };
 
 var loger = function loger() {
-  console.log('loger', logerStore.getState());
+    console.log('loger', logerStore.getState());
 };
 
 exports.default = loger;
+
+
+var Singleton = function () {
+    var instance = void 0;
+    var createInstance = function createInstance() {
+        return loger;
+    };
+    return {
+        getInstance: function getInstance() {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+}();
+
+function LogerPrototype(proto) {
+    this.clone = function () {
+        var loger = new LogerInstance();
+        loger.store = proto.store;
+        return loger;
+    };
+}
+
+function LogerInstance(store) {
+    this.store = store;
+}
+
+var proto = new LogerInstance(null);
+var prototype = new LogerPrototype(proto);
+var clone = prototype.clone();
 
 /***/ }),
 /* 6 */
